@@ -32,7 +32,7 @@ public int getId(){
     return id;
 }
 
-public void setId(){
+public void setId(int id){
     this.id = id;
 }
 
@@ -41,7 +41,7 @@ public String getTitle(){
     
 }
 
-public void setRitle(){
+public void setTitle(String title){
     this.title = title;
 } 
 
@@ -49,24 +49,27 @@ public String getAuthor(){
     return author ;
 }
 
-public void setAuthor(){
+public void setAuthor(String author){
     this.author =author;
 }
 
-public double getPrice(){
+public long getPrice(){
     return price;
 } 
+
+public void setPrice(long price){
+    this.price = price;
+}
     
-public void input(){
-    Scanner x =new Scanner(System.in);
-    System.out.print("Nhap Ma Sach");
+public void input(Scanner x){
+    System.out.print("Nhap Ma Sach: ");
     this.id = Integer.parseInt(x.nextLine());
-    System.out.print("Nhap Ten Sach");
+    System.out.print("Nhap Ten Sach: ");
     this.title = x.nextLine();
-    System.out.print("Nhap tac gia");
+    System.out.print("Nhap tac gia: ");
     this.author = x.nextLine();
-    System.out.print("Nhap don gia");
-    this.price = x.nextLong();
+    System.out.print("Nhap don gia: ");
+    this.price = Long.parseLong(x.nextLine());
 }
 
 
@@ -76,7 +79,3 @@ public void output(){
     System.out.println(msg);
 }
 }
-
-
-
-
