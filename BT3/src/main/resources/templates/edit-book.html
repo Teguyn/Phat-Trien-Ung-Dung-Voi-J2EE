@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sửa Sách</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="hidden"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        .form-group-id {
+            margin: 20px 0;
+        }
+        .form-group-id label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group-id input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+            background-color: #f0f0f0;
+            color: #666;
+            cursor: not-allowed;
+        }
+        .btn-group {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+        }
+        .btn-submit {
+            background-color: #007bff;
+            width: 120px;
+        }
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+        .btn-cancel {
+            background-color: #6c757d;
+            width: 120px;
+        }
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sửa Sách</h1>
+        
+        <form th:action="@{/books/update}" method="post">
+            <div class="form-group-id">
+                <label for="id">ID Sách:</label>
+                <input type="text" id="id" th:value="${book.id}" disabled>
+                <input type="hidden" name="id" th:value="${book.id}">
+            </div>
+            
+            <div class="form-group">
+                <label for="title">Tên Sách:</label>
+                <input type="text" id="title" name="title" th:value="${book.title}" required placeholder="Nhập tên sách">
+            </div>
+            
+            <div class="form-group">
+                <label for="author">Tên Tác Giả:</label>
+                <input type="text" id="author" name="author" th:value="${book.author}" required placeholder="Nhập tên tác giả">
+            </div>
+            
+            <div class="btn-group">
+                <button type="submit" class="btn btn-submit">Cập Nhật</button>
+                <a href="/books" class="btn btn-cancel">Hủy</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
