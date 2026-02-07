@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout}">
+<head>
+    <title>Danh sách Sản phẩm</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="page-header">
+            <h1>Danh sách Sản phẩm</h1>
+            <p class="text-muted">Quản lý toàn bộ sản phẩm trong cửa hàng</p>
+        </div>
+
+        <div class="mb-3">
+            <a href="/products/create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Thêm sản phẩm mới
+            </a>
+        </div>
+
+        <div th:if="${products.isEmpty()}" class="alert alert-info" role="alert">
+            Không có sản phẩm nào. <a href="/products/create">Thêm sản phẩm mới</a>
+        </div>
+
+        <div th:unless="${products.isEmpty()}">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Mã SP</th>
+                        <th>Tên Sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Hình ảnh</th>
+                        <th>Danh mục</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.productCode}"></td>
+                        <td th:text="${product.productName}"></td>
+                        <td th:text="${#numbers.formatInteger(product.price, 3, 'COMMA')} + ' đ'"></td>
+                        <td>
+                            <div th:if="${product.image != null and product.image != ''}">
+                                <img th:src="@{/uploads/{filename}(filename=${product.image})}" 
+                                     alt="Product Image" 
+                                     style="max-width: 80px; max-height: 80px; object-fit: cover; border-radius: 4px;">
+                            </div>
+                            <div th:unless="${product.image != null and product.image != ''}" 
+                                 style="width: 80px; height: 80px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-size: 12px; color: #6c757d;">
+                                Chưa có ảnh
+                            </div>
+                        </td>
+                        <td>
+                            <span th:text="${product.category}" class="badge bg-secondary"></span>
+                        </td>
+                        <td>
+                            <a th:href="@{/products/edit/{code}(code=${product.productCode})}" 
+                               class="btn btn-sm btn-warning btn-action">
+                                Sửa
+                            </a>
+                            <a th:href="@{/products/delete/{code}(code=${product.productCode})}"
+                               onclick="return confirm('Bạn chắc chắn muốn xóa?')"
+                               class="btn btn-sm btn-danger btn-action">
+                                Xóa
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

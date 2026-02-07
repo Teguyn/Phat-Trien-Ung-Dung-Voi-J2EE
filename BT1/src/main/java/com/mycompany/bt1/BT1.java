@@ -25,6 +25,7 @@ public class BT1 {
                     5. Tim sach Lap trinh
                     6. Lay sach toi da theo gia
                     7. Tim kiem theo tac gia
+                    8. Sap xep theo gia tang dan
                     0. Thoat
                 Chon chuc nang: """;
 
@@ -99,6 +100,11 @@ public class BT1 {
                     System.out.print("Nhap ten tac gia can tim: ");
                     String authorName = x.nextLine().toLowerCase();
                     listBook.stream().filter(b -> b.getAuthor().toLowerCase().contains(authorName)).forEach(book::output);
+                }
+                case 8 -> {
+                    System.out.println("--- Danh sach sau khi sap xep ---");
+                    listBook.sort(Comparator.comparingLong(book::getPrice));
+                    listBook.forEach(book::output);
                 }
                 case 0 -> System.out.println("Thoat chuong trinh.");
                 default -> System.out.println("Chuc nang khong hop le!");
