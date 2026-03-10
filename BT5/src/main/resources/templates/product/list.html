@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout}">
+<head>
+    <title>Danh Sách Sản Phẩm</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2 class="mb-4">Danh Sách Sản Phẩm</h2>
+            <a th:href="@{/products/add}" class="btn btn-success btn-lg">Thêm Sản Phẩm Mới</a>
+        </div>
+    </div>
+    
+    <div th:if="${#lists.isEmpty(products)}" class="alert alert-info" role="alert">
+        <h5>Không có sản phẩm nào. <a th:href="@{/products/add}">Thêm sản phẩm mới</a></h5>
+    </div>
+    
+    <div th:unless="${#lists.isEmpty(products)}" class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th style="width: 5%">ID</th>
+                    <th style="width: 20%">Tên Sản Phẩm</th>
+                    <th style="width: 20%">Hình Ảnh</th>
+                    <th style="width: 15%">Giá</th>
+                    <th style="width: 20%">Danh Mục</th>
+                    <th style="width: 20%">Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="p : ${products}">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.name}"></td>
+                    <td>
+                        <img th:if="${p.image}" th:src="${p.image}" style="max-width: 100px; max-height: 100px; object-fit: cover;" alt="Product Image">
+                        <span th:unless="${p.image}" class="text-muted">Không có hình ảnh</span>
+                    </td>
+                    <td>
+                        <strong th:text="'₫ ' + ${#numbers.formatInteger(p.price, 0, 'COMMA')}"></strong>
+                    </td>
+                    <td th:text="${p.category?.name}"></td>
+                    <td>
+                        <a th:href="@{/products/delete/{id}(id=${p.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Bạn chắc chắn muốn xóa?')">🗑️ Xóa</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
